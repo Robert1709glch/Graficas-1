@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\engine">
+      <UniqueIdentifier>{2bedf3df-c087-4ac4-a62c-28401c81512e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders">
+      <UniqueIdentifier>{4842ec1b-bd8f-463b-9c9e-9e42ad0f64ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\particles">
+      <UniqueIdentifier>{47156173-31fd-48c6-a020-638cef8fb08b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\text">
+      <UniqueIdentifier>{c678a509-c39c-4202-9fa1-743df4757011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\gui">
+      <UniqueIdentifier>{d86102a3-57d7-4b13-9bdc-affdcdb897c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\iluminación">
+      <UniqueIdentifier>{8cac82ff-ff6a-4398-8f1a-45500cc5db29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\billboard">
+      <UniqueIdentifier>{1dbf1e6a-801f-4fd8-8be6-faf50db7959e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\terreno">
+      <UniqueIdentifier>{c6222e3c-6e3f-4f2b-b732-b8157bbf53f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\shaders\skybox">
+      <UniqueIdentifier>{8ecba321-0c32-4bd8-93a4-42a4c68528ea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="rbRigidBody.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="rbSolver.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="rbCollision.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="rbEnvironment.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\engine\camera.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\filesystem.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\mesh.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\model.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Particles.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\QuadTexture.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Random.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\shader.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\shader_m.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\shader_s.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\textrenderer.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\utils.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Billboard.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Terrain.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\skybox.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\CollisionBox.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\RigidModel.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Plane.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Game.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Scene.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\functions.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\variables.h">
+      <Filter>Archivos de encabezado\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\billboard.vs">
+      <Filter>Archivos de encabezado\shaders\billboard</Filter>
+    </None>
+    <None Include="shaders\billboard.fs">
+      <Filter>Archivos de encabezado\shaders\billboard</Filter>
+    </None>
+    <None Include="shaders\gui.vs">
+      <Filter>Archivos de encabezado\shaders\gui</Filter>
+    </None>
+    <None Include="shaders\gui.fs">
+      <Filter>Archivos de encabezado\shaders\gui</Filter>
+    </None>
+    <None Include="shaders\lighting_maps.vs">
+      <Filter>Archivos de encabezado\shaders\iluminación</Filter>
+    </None>
+    <None Include="shaders\multiple_lighting.fs">
+      <Filter>Archivos de encabezado\shaders\iluminación</Filter>
+    </None>
+    <None Include="shaders\multiple_lighting.vs">
+      <Filter>Archivos de encabezado\shaders\iluminación</Filter>
+    </None>
+    <None Include="shaders\lighting_maps.fs">
+      <Filter>Archivos de encabezado\shaders\iluminación</Filter>
+    </None>
+    <None Include="shaders\particles.vs">
+      <Filter>Archivos de encabezado\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\particles.fs">
+      <Filter>Archivos de encabezado\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\text.vs">
+      <Filter>Archivos de encabezado\shaders\text</Filter>
+    </None>
+    <None Include="shaders\text.fs">
+      <Filter>Archivos de encabezado\shaders\text</Filter>
+    </None>
+    <None Include="shaders\terrain.vs">
+      <Filter>Archivos de encabezado\shaders\terreno</Filter>
+    </None>
+    <None Include="shaders\terrain.fs">
+      <Filter>Archivos de encabezado\shaders\terreno</Filter>
+    </None>
+    <None Include="shaders\skyBox.vs">
+      <Filter>Archivos de encabezado\shaders\skybox</Filter>
+    </None>
+    <None Include="shaders\skyBox.fs">
+      <Filter>Archivos de encabezado\shaders\skybox</Filter>
+    </None>
+    <None Include="billboard.vs">
+      <Filter>Archivos de encabezado\shaders</Filter>
+    </None>
+    <None Include="billboard.fs">
+      <Filter>Archivos de encabezado\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
