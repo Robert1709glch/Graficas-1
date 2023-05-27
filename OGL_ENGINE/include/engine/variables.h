@@ -99,24 +99,35 @@ TextRenderer* Text;
 //==========TIMER==========//
 float timer = 0;
 
+
+//::::::::::::::::::::: VARIABLES CAMBIO SKYBOX :::::::::::::::::::::::
+float cambioSky = 0.5;
+float contadorSky = 0;
+int minuteCount = 0;
+bool isNight = false, isDay2 = true;
+bool isRaining = false;
+
 //:::::::::::::::::::::VARIABLES CAMBIO DE CLIMA:::::::::::::::::::::::
 int changeSkyBoxTexture = 0;
 float oscurecer = 0.5f;
-float amanecer = 0.3f;
+float amanecer = 0.2f;
 float tiempo = (float)glfwGetTime();
 
 //=======BILLBOARD=======//
-Billboard enemy;
-Billboard enemy2;
-Billboard enemy3;
-Billboard enemy4;
-Billboard enemy5;
-Billboard enemy6;
-Billboard enemy7;
-Billboard enemy8;
-float enemyX = 0.0f, enemyY = 0.0f, enemyZ = 0.0f;
-bool isMoving = true;
-float i = 0;
+Billboard fuego;
+Billboard pasto;
+Billboard pasto2;
+Billboard pasto3;
+Billboard pasto4;
+Billboard humo;
+Billboard arbol;
+float fireAnimX = 0.0f, fireAnimY = 0.0f;
+float pastoX = 0.0f, pastoY = 0.0f;
+float pastoX2 = 0.0f, pastoY2 = 0.0f;
+float pastoX3 = 0.0f, pastoY3 = 0.0f;
+float pastoX4 = 0.0f, pastoY4 = 0.0f;
+float humoX = 0.0f, humoY = 0.0f;
+float arbolX = 0.0f, arbolY = 0.0f;
 
 //=====JUGABILIDAD=====//
 bool n_key = false;

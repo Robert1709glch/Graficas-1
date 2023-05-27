@@ -14,6 +14,9 @@
 #include <engine/textrenderer.h>
 #include <glad/glad.h>
 #include <iostream>
+#include <Windows.h>
+
+#define TIMER 100
 
 int main()
 {
@@ -89,11 +92,31 @@ int main()
         drawModels(&ourShader, view, projection);
         //:::: SKYBOX Y TERRENO:::://
         loadEnviroment(&terrain, &sky, view, projection);
+        
+
+        //=======WATER=======//
+        if (animWaterY <= 4.0f && animWaterX <= 4.0f && !is_water_out) {
+            animWaterX += 0.001f;
+            animWaterY += 0.001f;
+        }
+        else {
+            is_water_out = true;
+            if (animWaterY > 0.0f && animWaterX > 0.0f && is_water_out) {
+                animWaterX -= 0.0000001f;
+                animWaterY -= 0.0000001f;
+            }
+            else {
+                is_water_out = false;
+            }
+        }
+        plane.draw(animWaterX, animWaterY, view, projection);
         //:::: COLISIONES :::://
         collisions();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    
     //:::: LIBERACIÓN DE MEMORIA:::://   
     delete[] texturePaths;
     sky.Release();
@@ -112,6 +135,12 @@ int main()
     physicsEnviroment.Unregister(&pared);
     glfwTerminate();
 
+
+    //======WATER PLANE=========//
+    plane.Release();
+    glfwTerminate();
+    KillTimer(NULL, TIMER);
+
     return 0;
 }
 
@@ -121,7 +150,7 @@ void initScene(Shader ourShader)
     //AGUA
     //:::: DEFINIMOS LAS TEXTURAS DE LA MULTITEXTURA DEL TERRENO :::://
     texturePaths = new const char *[4];
-    texturePaths[0] = "textures/multitexture_colors.jpg";
+    texturePaths[0] = "textures/multitexture_colors.png";
     texturePaths[1] = "textures/terrain1.png";
     texturePaths[2] = "textures/terrain2.png";
     texturePaths[3] = "textures/terrain3.png";
@@ -154,22 +183,37 @@ void initScene(Shader ourShader)
        
 
     //:::: INICIALIZAMOS NUESTROS MODELOS :::://    
-    models.push_back(Model("carrorojo", "models/CarroRojo.obj", glm::vec3(5.3, 0.5, -4.3), glm::vec3(0, 90, 0), 0.0f, initScale));
-    models.push_back(Model("carroazul", "models/CarroAzul.obj", glm::vec3(-9.6, 0.7, -2), glm::vec3(0, 0, 0), 0.0f, initScale));
-    models.push_back(Model("van", "models/Van.obj", glm::vec3(12, 0.8, -4.5), glm::vec3(0, 90, 0), 0.0f, initScale));
-   
+    models.push_back(Model("carroazul", "models/CarroAzul.obj", glm::vec3(5.3, 0.5, -4.3), glm::vec3(0, 90, 0), 0.0f, initScale));
+    models.push_back(Model("closet", "models/closet.obj", glm::vec3(-9.6, 0.7, -2), glm::vec3(0, 0, 0), 0.0f, initScale));
+    models.push_back(Model("box", "models/box.obj", glm::vec3(12, 0.8, -4.5), glm::vec3(0, 90, 0), 0.0f, initScale));
+    models.push_back(Model("birds", "models/birds.obj", glm::vec3(8.95982, 11.4901, -8.48013), glm::vec3(0, 0, 0), 0.0f, 1.5f));
+    models.push_back(Model("arbol", "models/arbol.obj", glm::vec3(-9.6, 0.0, -2), glm::vec3(0, 0, 0), 0.0f, 0.5f));
+    models.push_back(Model("semaforo", "models/semaforo.obj", glm::vec3(5.62004, -0.17, 24.3605), glm::vec3(0, 0, 0), 0.0f, 50));
+    models.push_back(Model("box", "models/box.obj", glm::vec3(35.2304, 0.85, -9.30019), glm::vec3(0, 180, 0), 0.0f, 1));
+    models.push_back(Model("fire", "models/fire.obj", glm::vec3(36.45, 0.8, -2.1701), glm::vec3(0, 180, 0), 0.0f, 1));
+    models.push_back(Model("tv", "models/tv.obj", glm::vec3(35.4, 0.71, -6.60005), glm::vec3(0, 180, 0), 0.0f, 2.0f));
+    models.push_back(Model("house2", "models/house2.obj", glm::vec3(2.72, 0.0, -2), glm::vec3(0, 0, 0), 0.0f, 1));
+    models.push_back(Model("box", "models/box.obj", glm::vec3(35.2304, 0.85, -9.30019), glm::vec3(0, 180, 0), 0.0f, 1));
+    models.push_back(Model("nubes", "models/nubes.obj", glm::vec3(5.62004, 17, 24.3605), glm::vec3(0, 180, 0), 0.0f, 1));
+    //models.push_back(Model("nubes2", "models/nubes.obj", glm::vec3(54.1135, 17, -2.31996), glm::vec3(0, 180, 0), 0.0f, 1));
+    //models.push_back(Model("nubes3", "models/nubes.obj", glm::vec3(34.9202, 19.14, 43.430038), glm::vec3(0, 180, 0), 0.0f, 1));
+    //models.push_back(Model("nubes4", "models/nubes.obj", glm::vec3(78.13545, 19.14, 25.430038), glm::vec3(0, 180, 0), 0.0f, 1));
+    
    
     //CREAMOS TODAS  LAS CAJAS DE COLISION INDIVIDUALES
     CollisionBox collbox;
     glm::vec4 colorCollbox(0.41f, 0.2f, 0.737f, 0.06f);
-    collbox = CollisionBox(glm::vec3(25.97, 2.4, 11), glm::vec3(0.3, 5, 12.4), colorCollbox);
+    collbox = CollisionBox(glm::vec3(36.8693, 3.09, -0.860156), glm::vec3(0.3, 4.75, 10.1101), colorCollbox);
     collboxes.insert(pair<int, pair<string, CollisionBox>>(0, pair<string, CollisionBox>("pared_atras", collbox)));
-    collbox = CollisionBox(glm::vec3(9.88, 2.6, 7.45999), glm::vec3(0.3, 4.6, 7.6), colorCollbox);
+    collbox = CollisionBox(glm::vec3(14.96, 4.15, -3.32), glm::vec3(0.5, 8.13003, 17.7901), colorCollbox);
     collboxes.insert(pair<int, pair<string, CollisionBox>>(1, pair<string, CollisionBox>("pared_frente_izq", collbox)));
-    collbox = CollisionBox(glm::vec3(10.37, 2.8, 18.87), glm::vec3(0.3, 5.4, 1.2), colorCollbox);
+    collbox = CollisionBox(glm::vec3(25.0, 3.95, -13.27), glm::vec3(14.97, 8.11, 0.5), colorCollbox);
     collboxes.insert(pair<int, pair<string, CollisionBox>>(2, pair<string, CollisionBox>("pared_frente_der", collbox)));
-    collbox = CollisionBox(glm::vec3(10.35, 5.41, 14.85), glm::vec3(0.3, 1, 3.6), colorCollbox);
+    collbox = CollisionBox(glm::vec3(19.36, 5.12002, 6.94001), glm::vec3(6.08002, 9.71013, 0.5), colorCollbox);
     collboxes.insert(pair<int, pair<string, CollisionBox>>(3, pair<string, CollisionBox>("pared_frente_arriba", collbox)));
+    collbox = CollisionBox(glm::vec3(28.5604, 10, -0.8501), glm::vec3(9.3101, 0.49, 5), colorCollbox);
+    collboxes.insert(pair<int, pair<string, CollisionBox>>(4, pair<string, CollisionBox>("techo", collbox)));
+    collbox = CollisionBox(glm::vec3(18.7502, 0.899866, -4.66011), glm::vec3(0.49, 0.5, 0.5), colorCollbox);
 
     //CREAMOS LOS LIGHTCUBES QUE ENREALIDAD SON COLLISION BOXES QUE NOS AYUDARAN A IDENTIFICAR LA POSICIÓN DE DONDE ESTAN
     glm::vec3 lScale(0.5);
@@ -183,8 +227,43 @@ void initScene(Shader ourShader)
     collbox = CollisionBox(pointLightPositions[3], lScale, colorCollbox);
     lightcubes.insert(pair<int, pair<string, CollisionBox>>(3, pair<string, CollisionBox>("LUZ4", collbox)));
 
-   
+    //===============ADD WATER===============//
+    plane = Plane("textures/agua3.jpg", 2048.0, 2048.0, 0.0, 0.0);  //=========ADD PATH OF THE WATER ON THE TEXT===========//
+
+    plane.setPosition(glm::vec3(20.5, -0.5, -10.5));                  //========POSITION OF THE WATER========//
+    plane.setAngles(glm::vec3(90.0, 0.0, 0.0));                 //========ANGLE OF WATER==============//
+    plane.setScale(glm::vec3(150.0));                            //========SCALE OF WATER IMAGE=======//
      
+    //==========BILLBOARD==========//
+    
+    fuego = Billboard("textures/fuego.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 400.0f, 420.0f);//907.0f, 1536.0f
+    fuego.setPosition(glm::vec3(36.45, 0.7, -2.1701));//1024, 516
+    fuego.setScale(1.5f);
+
+    pasto = Billboard("textures/pasto.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 512.0f, 258.0f);//907.0f, 1536.0f
+    pasto.setPosition(glm::vec3(0, -0.5, 0));//1024, 516
+    pasto.setScale(1.5f);
+
+    pasto2 = Billboard("textures/pasto.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 512.0f, 258.0f);//907.0f, 1536.0f
+    pasto2.setPosition(glm::vec3(-15, -0.5, 0));//1024, 516
+    pasto2.setScale(1.5f);
+
+    pasto3 = Billboard("textures/pasto.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 512.0f, 258.0f);//907.0f, 1536.0f
+    pasto3.setPosition(glm::vec3(-15, -0.5,-5));//1024, 516
+    pasto3.setScale(1.5f);
+
+    pasto4 = Billboard("textures/pasto.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 512.0f, 258.0f);//907.0f, 1536.0f
+    pasto4.setPosition(glm::vec3(-15, -0.5, -10));//1024, 516
+    pasto4.setScale(1.5f);
+
+    arbol = Billboard("textures/arbol.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 325.0f, 405.0f);//907.0f, 1536.0f
+    arbol.setPosition(glm::vec3(-15, -0.5, 20));//1024, 516
+    arbol.setScale(1.5f);
+
+    humo = Billboard("textures/humo.png", (float)SCR_WIDTH, (float)SCR_HEIGHT, 515.0f, 515.0f);//907.0f, 1536.0f
+    humo.setPosition(glm::vec3(-20, -0.5, 10));//1024, 516
+    humo.setScale(1.5f);
+
 }
 //:::: CONFIGURACIONES :::://
 
@@ -210,34 +289,97 @@ void loadEnviroment(Terrain *terrain, SkyBox *sky, glm::mat4 view, glm::mat4 pro
         for (pair<int, pair<string, CollisionBox>> lights : lightcubes)
             lights.second.second.draw(view, projection);
 
-    if ((float)glfwGetTime() >= tiempo + 5)
-    {
-        if (oscurecer > 0.2) {
-            mainLight = vec3(oscurecer);
-            oscurecer -= 0.001;
+    
+    //Cambio de skybox (amanecer)
+    contadorSky = (float)glfwGetTime();
+    int totalSec;
+    if (contadorSky > 60) {// Sacar el residuo
+        totalSec = (int)contadorSky % 60;
+    }
+    else {
+        totalSec = (int)contadorSky;
+    }
+    if (/*minuteCount % 2 == 0*/  totalSec >= 0 && totalSec <= 30) {//cada 30 segundos
+
+        if (cambioSky > 0.2) {
+            mainLight = vec3(cambioSky);
+            cambioSky -= 0.001;
         }
         else {
             if (changeSkyBoxTexture == 0)
             {
+                isNight = true;
+                isDay2 = false;
                 sky->reloadTexture("5");
                 changeSkyBoxTexture++;
             }
         }
     }
-    if ((float)glfwGetTime() >= tiempo + 10) {
-        if (amanecer < 0.5) {
-            mainLight = vec3(amanecer);
-            amanecer += 0.001;
+    else {
+        if (cambioSky < 0.5) {
+            mainLight = vec3(cambioSky);
+            cambioSky += 0.001;
         }
         else {
             if (changeSkyBoxTexture == 1)
             {
+                isDay2 = true;
+                isNight = false;
                 sky->reloadTexture("1");
                 changeSkyBoxTexture--;
-                tiempo = (float)glfwGetTime();
             }
         }
     }
+    
+    //========WATER ANIMATION========//
+    if (animWaterY <= 4.0f && animWaterX <= 4.0f && !is_water_out) {
+        animWaterX += 0.001f;
+        animWaterY += 0.001f;
+    }
+    else {
+        is_water_out = true;
+        if (animWaterY > 0.0f && animWaterX > 0.0f && is_water_out) {
+            animWaterX -= 0.001f;
+            animWaterY -= 0.001f;
+        }
+        else {
+            is_water_out = false;
+        }
+    }
+    //BILLBOARDS ANIMATION//
+    if (fireAnimY <= 1.0f) {
+        if (fireAnimY <= 3.0f) {
+            fireAnimX += 0.3f;
+        }
+        else {
+            fireAnimX = 0.0f;
+            fireAnimY += 1.0f;
+        }
+    }
+    else {
+        fireAnimX = 0.0f;
+        fireAnimY = 0.0f;
+    }
+    fuego.Draw(camera, round(fireAnimX), round(fireAnimY));
+    if (humoY <= 1.0f) {
+        if (humoY <= 3.0f) {
+            humoX += 0.3f;
+        }
+        else {
+            humoX = 0.0f;
+            humoY += 1.0f;
+        }
+    }
+    else {
+        humoX = 0.0f;
+        humoY = 0.0f;
+    }
+    humo.Draw(camera, round(humoX), round(humoY));
+    pasto.Draw(camera, round(pastoX), round(pastoY));
+    pasto2.Draw(camera, round(pastoX2), round(pastoY2));
+    pasto3.Draw(camera, round(pastoX3), round(pastoY3));
+    pasto4.Draw(camera, round(pastoX4), round(pastoY4));
+    arbol.Draw(camera, round(arbolX), round(arbolY));
     
 }
 void drawModels(Shader *shader, glm::mat4 view, glm::mat4 projection)

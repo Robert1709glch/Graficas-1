@@ -1,0 +1,13 @@
+# Blender MTL File: 'Branch00.blend'
+# Material Count: 1
+
+newmtl MaterialBranch00
+Ns 18.595022
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.115152 0.115152 0.115152
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures\\0.jpeg
